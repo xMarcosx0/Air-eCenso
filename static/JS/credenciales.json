@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "censoair-e",
+  "private_key_id": "3a2f9c560210e7125c6339642c903cc12df657b8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJIblH+AZT9Yt2\nuntJP1Q7vSBy+6B/kZ6gxnLFHgMN9sTa7/abbo8NFx3GiyrhvpA7jF3oTMFSZC2N\nfgM4fc2/ikkBd5x07MUd6j7JZnMZgiawefn6B1VJKgxg3ZqCyLXTyMSDf3wdIMNn\n+eVSkHzOIq3i/D8uvHmayrCPoyE7nCFkoUyRfLXzUC7fdoDSCNqTsguUjToMJNma\ni7Wh/9gbOQcx4fbKkM8G/JZkvKCnCqUTTWfSdTZr0mqe8lkwWghbgN58C/o+8WDe\nF+2PG/mBP2swBVemqRpr674pQkq0m+ueNGsLr2erSjqPukCDzCR77zJca2kF8y6P\nR7xFAYjtAgMBAAECggEAA/6I9O5uhb1TGzUB3McGr7cGTXJE0jO8oDnArrx1WBIl\n/6kTTyvnaF2kqDw8SkZkC+KyPLpFfpLhurUdcEJDU0H2SDKtZz8KfRkZTRudPozw\nosGRXs9FeNH+c/ACsQU2YzHSAUCHYPa1GrwCO10GNXvH00GqKY3xpkrPLdMSBmJ+\n1j/msRrPSHa7PsybAiA/bFRCdBpDsLe5+jgULNTovEy2HYVPV+Zqso16ldOHk5st\nssUFQ7mSWlnwga6fUofG/4TIX3VbsA8RRbH173e+Nn2rW/BJxflK8fwWxSCzsdyp\na/IB6JKsZDOAHQcogNC0toWhcoLny96B9WVnL4vOUQKBgQD2UsV7wqLpReN20vqU\n+1Hau4eMsRSWEa3sWigLAj/pfSMCqiHdpVlVCpIKuzl398THuxoSt8hGyHz/bRPP\nriHvkSrtsm58LblD8mERsO54C/90g3GAJO7q5Plf4As3az4B/Zs9LHcUZfdCplWb\n/6oQ1A9Lzxz5Vjk/YqrLPkFCWQKBgQDRCHgA/1YJAmUBtJcaaQGiysE1J5VmHvfS\nnCMSmHSVkktv+qK4CNdfC23Dj+tUILdlkRnag6UmumNQUmWqnzZSKtu3G7C9a3PX\n7Vcj+JkpSslio5lOwFysLYqoyoxgxbT+QmUVXhKqPDLxg3N8sL3z8V8SF5zbhS4e\nAcKw6dagtQKBgDgjNQ63lRlE7EowWxuJC2amRoYx9VceQF0VTvrzUE2OT2RUEdPJ\n00omVpJLiRVmSlqasZ6CdAptts8ftNwn+2P12arCd5ulcAukOasmf7KsSVPsgPmL\ncUfnV04aaXP/5OnfOnn+oETt2CRAdFJROhkLu1Czqw7IL9PaUMJxNb5BAoGAAjQ3\np7MJgjDPRdRUn4ep58CBhwDy10/ORx80U3beC9GuD/ExlAUr2Cmzr5Mt5QYvSNfd\n0OsAa8cdUvR7c/AXz4f6JxUYqPagEw/CknOFkeTi+LJG5IissXgNdTglgMO049Vp\nYW9LfRYDZ35+Ujs+1XqfCP7MvZfK47AbEGh2xd0CgYEAzmX/PpNL1rWgK3CzKDfw\nvkzznHUX+cUoBJ7vQZ4K8DRNqd9Zht4ux+VDEEgfmA7+vNcLtATdezyEd/4Jbqx9\nLMxEwUs1WQ+YJEuFkzkVkxnxlODQvHkaw4n1UOoQizVuUSEZywfmcmTX9vX4/0Lg\nScueJ9cUapASpzKH3IgMBUo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "censoair-e@censoair-e.iam.gserviceaccount.com",
+  "client_id": "101395958873704878954",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/censoair-e%40censoair-e.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
