@@ -1,0 +1,99 @@
+Diseño de Aplicativo Web para Infraestructura y Censo
+Basado en tu descripción, puedo ayudarte a estructurar el diseño de tu aplicativo web para optimizar los procesos de Infraestructura y Censo. Aquí te presento un esquema completo:
+
+Roles y Flujo de Trabajo
+PRST (Cable Operativo)
+
+Crea proyectos
+
+Adjunta documentación (PDF, DWG, Excel, KMZ)
+
+Envía proyectos al Ejecutivo
+
+Ejecutivo
+
+Revisa viabilidad (fechas y documentación)
+
+Aprueba/rechaza proyectos
+
+Envía proyectos aprobados al Coordinador
+
+Recibe y revisa informes finales
+
+Coordinador (Operativo)
+
+Recibe proyectos viables
+
+Asigna proyectos a Brigada/Analista
+
+Verifica trabajos completados por Brigada
+
+Aprueba/rechaza trabajos
+
+Envía trabajos aprobados al Ejecutivo
+
+Brigada
+
+Recibe proyectos asignados
+
+Accede a formulario con:
+
+Mapa KMZ integrado
+
+Selección de postes
+
+Campos de datos
+
+Carga de imágenes
+
+Envía trabajo completado al Coordinador
+
+Módulos Principales
+1. Módulo de Creación de Proyectos (PRST)
+Formulario de creación con campos requeridos
+
+Carga múltiple de documentos
+
+Vista previa de documentos
+
+Historial de proyectos creados
+
+2. Módulo de Revisión (Ejecutivo)
+Listado de proyectos pendientes
+
+Visualizador integrado de documentos
+
+Sistema de aprobación/rechazo con comentarios
+
+Notificaciones al PRST
+
+3. Módulo de Asignación (Coordinador)
+Tablero de proyectos aprobados
+
+Sistema de asignación a brigadas
+
+Seguimiento de progreso
+
+Validación de trabajos completados
+
+4. Módulo de Trabajo de Campo (Brigada)
+Formulario interactivo con:
+
+Mapa KMZ integrado (Google Maps/Leaflet)
+
+Selección de postes (geolocalización)
+
+Campos dinámicos según tipo de proyecto
+
+Carga de imágenes con validación
+
+Guardado automático de progreso
+
+5. Módulo de Generación de Informes (Ejecutivo)
+Plantillas de informes configurables
+
+Generación automática con datos del proyecto
+
+Exportación en múltiples formatos (PDF, Excel)
+
+Historial de informes
