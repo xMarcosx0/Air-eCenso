@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air-e - Panel de Administración</title>
+    <link rel="icon" type="image/png" href="./Images/IconoAir-e.webp">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link href="Css/admin.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3">
+        <div class="container-fluid">
+            <!-- Logo y título -->
+            <div class="header-logo navbar-brand">
+                <img src="./Images/IconoAir-e.webp" alt="Air-e Logo" id="Logoair-e">
+                <h1 class="d-inline-block ms-2">Air-e - Panel de Administración</h1>
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <!-- Botones de acciones -->
+                <div class="header-actions d-flex align-items-center">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-dark position-relative" id="notifications-button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge d-none" id="notification-badge">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end notifications-dropdown" id="notifications-list">
+                            <div class="dropdown-item text-center">No tienes notificaciones</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-dark me-2" id="profile-button">
+                        <i class="fas fa-user"></i>
+                        <span id="user-name">Usuario</span>
+                    </button>
+                    <button class="btn btn-danger" id="logout-button">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container-fluid main-content">
+        <!-- Navegación por pestañas -->
+        <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+              <i class="fas fa-user me-2"></i>Mi Perfil
+            </button>
+          </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="true">
+                    <i class="fas fa-chart-line me-2"></i>Dashboard
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">
+                    <i class="fas fa-users me-2"></i>Usuarios
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab" aria-controls="projects" aria-selected="false">
+                    <i class="fas fa-project-diagram me-2"></i>Proyectos
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="in-progress-tab" data-bs-toggle="tab" data-bs-target="#in-progress" type="button" role="tab" aria-controls="in-progress" aria-selected="false">
+                    <i class="fas fa-clock me-2"></i>En Gestión
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">
+                    <i class="fas fa-check-circle me-2"></i>Finalizados
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content" id="adminTabsContent">
+          <!-- Agregar nuevo panel para el perfil -->
+<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Mi Perfil</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="text-center mb-4">
+            <img src="./Images/user-default.png" alt="Foto de perfil" class="rounded-circle img-thumbnail" width="150">
+            <h4 class="mt-3" id="profile-fullname"></h4>
+            <p class="text-muted" id="profile-role"></p>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header bg-light">
+              <h6>Información Personal</h6>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm">
+                <tr>
+                  <th>Nombre de usuario:</th>
+                  <td id="profile-username"></td>
+                </tr>
+                <tr>
+                  <th>Correo electrónico:</th>
+                  <td id="profile-email"></td>
+                </tr>
+                <tr>
+                  <th>Último acceso:</th>
+                  <td id="profile-lastlogin"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          
+          <div class="card mt-4">
+            <div class="card-header bg-light">
+              <h6>Cambiar contraseña</h6>
+            </div>
+            <div class="card-body">
+              <form id="change-password-form">
+                <div class="mb-3">
+                  <label for="current-password" class="form-label">Contraseña actual</label>
+                  <input type="password" class="form-control" id="current-password" required>
+                </div>
+                <div class="mb-3">
+                  <label for="new-password" class="form-label">Nueva contraseña</label>
+                  <input type="password" class="form-control" id="new-password" required>
+                </div>
+                <div class="mb-3">
+                  <label for="confirm-password" class="form-label">Confirmar nueva contraseña</label>
+                  <input type="password" class="form-control" id="confirm-password" required>
+                </div>
+                <button type="button" class="btn btn-primary" id="save-password-btn">Cambiar contraseña</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            <!-- Dashboard -->
+<div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+  <!-- Vista principal del dashboard -->
+  <div id="main-dashboard-content">
+      <!-- Resumen General -->
+      <div class="row mb-4">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header bg-primary text-white">
+                      <h5 class="mb-0">Resumen General</h5>
+                  </div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-3 col-sm-6 mb-3">
+                              <div class="stat-card bg-primary text-white" id="show-users-card" style="cursor: pointer;">
+                                  <div class="stat-card-body">
+                                      <div class="stat-card-icon">
+                                          <i class="fas fa-users"></i>
+                                      </div>
+                                      <div class="stat-card-info">
+                                          <div class="stat-card-title">Total Usuarios</div>
+                                          <div class="stat-card-value" id="total-users">0</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-sm-6 mb-3">
+                              <div class="stat-card bg-success text-white" id="show-projects-card" style="cursor: pointer;">
+                                  <div class="stat-card-body">
+                                      <div class="stat-card-icon">
+                                          <i class="fas fa-project-diagram"></i>
+                                      </div>
+                                      <div class="stat-card-info">
+                                          <div class="stat-card-title">Total Proyectos</div>
+                                          <div class="stat-card-value" id="total-projects">0</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-sm-6 mb-3">
+                              <div class="stat-card bg-warning text-white" id="show-in-progress-card" style="cursor: pointer;">
+                                  <div class="stat-card-body">
+                                      <div class="stat-card-icon">
+                                          <i class="fas fa-clock"></i>
+                                      </div>
+                                      <div class="stat-card-info">
+                                          <div class="stat-card-title">En Gestión</div>
+                                          <div class="stat-card-value" id="in-progress-projects">0</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-sm-6 mb-3">
+                              <div class="stat-card bg-info text-white" id="show-completed-card" style="cursor: pointer;">
+                                  <div class="stat-card-body">
+                                      <div class="stat-card-icon">
+                                          <i class="fas fa-check-circle"></i>
+                                      </div>
+                                      <div class="stat-card-info">
+                                          <div class="stat-card-title">Finalizados</div>
+                                          <div class="stat-card-value" id="completed-projects">0</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Gráficos -->
+      <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                  <div class="card-header bg-primary text-white">
+                      <h5 class="mb-0">Proyectos por Estado</h5>
+                  </div>
+                  <div class="card-body">
+                      <canvas id="projects-by-status-chart"></canvas>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                  <div class="card-header bg-primary text-white">
+                      <h5 class="mb-0">Distribución de Proyectos por Departamento</h5>
+                  </div>
+                  <div class="card-body">
+                      <canvas id="projects-by-department-chart"></canvas>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Flujo de Proyectos -->
+      <div class="row mb-4">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                      <h5 class="mb-0">Flujo de Proyectos</h5>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-light btn-sm time-period-btn active" data-period="month">Mes</button>
+                          <button type="button" class="btn btn-light btn-sm time-period-btn" data-period="day">Día</button>
+                          <button type="button" class="btn btn-light btn-sm time-period-btn" data-period="year">Año</button>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <canvas id="projects-flow-chart"></canvas>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Proyectos Filtrados -->
+      <div class="row mb-4 d-none" id="filtered-projects-section">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                      <h5 class="mb-0" id="filtered-projects-title">Proyectos Filtrados</h5>
+                      <button class="btn btn-light btn-sm" id="close-filtered-projects">
+                          <i class="fas fa-times"></i> Cerrar
+                      </button>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th>OT AIR-E</th>
+                                      <th>Nombre del Proyecto</th>
+                                      <th>PRST</th>
+                                      <th>Departamento</th>
+                                      <th>Fecha Creación</th>
+                                      <th>Estado</th>
+                                      <th>Acciones</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="filtered-projects-table">
+                                  <tr>
+                                      <td colspan="7" class="text-center">No hay proyectos para mostrar</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Vista de proyectos por departamento (oculta inicialmente) -->
+  <div id="department-dashboard-content" class="d-none">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0" id="department-projects-title">Proyectos en Departamento</h5>
+            <button class="btn btn-light" id="back-to-dashboard">
+                <i class="fas fa-arrow-left me-1"></i> Volver al Dashboard
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>OT AIR-E</th>
+                            <th>Nombre del Proyecto</th>
+                            <th>PRST</th>
+                            <th>Departamento</th>
+                            <th>Fecha Creación</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="department-projects-table">
+                        <tr>
+                            <td colspan="7" class="text-center">No hay proyectos para mostrar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+            <!-- Usuarios -->
+            <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+                <div class="card">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Gestión de Usuarios</h5>
+                        <button class="btn btn-light" id="new-user-button">
+                            <i class="fas fa-plus"></i> Nuevo Usuario
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtros de usuarios -->
+                        <div class="row mb-3">
+                            <div class="col-md-3 mb-2">
+                                <input type="text" class="form-control" id="filter-user-name" placeholder="Buscar por nombre o usuario" oninput="filterUsers()">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select class="form-select" id="filter-user-role" onchange="filterUsers()">
+                                    <option value="">Todos los roles</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="prst">PRST</option>
+                                    <option value="ejecutiva">Ejecutiva</option>
+                                    <option value="coordinador">Coordinador</option>
+                                    <option value="analista">Analista</option>
+                                    <option value="brigada">Brigada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select class="form-select" id="filter-user-department" onchange="filterUsers()">
+                                    <option value="">Todos los departamentos</option>
+                                    <option value="Atlántico">Atlántico</option>
+                                    <option value="La Guajira">La Guajira</option>
+                                    <option value="Magdalena">Magdalena</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select class="form-select" id="filter-user-status" onchange="filterUsers()">
+                                    <option value="">Todos los estados</option>
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de usuarios -->
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Usuario</th>
+                                        <th>Correo</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <tr>
+                                        <td colspan="8" class="text-center">Cargando usuarios...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyectos -->
+            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Gestión de Proyectos</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Filtros de proyectos -->
+                        <div class="row mb-3">
+                            <div class="col-md-3 mb-2">
+                                <input type="text" class="form-control" id="filter-project-name" placeholder="Nombre del proyecto" oninput="filterProjects()">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select class="form-select" id="filter-project-prst" onchange="filterProjects()">
+                                    <option value="">Todos los PRST</option>
+                                    <!-- Se llenará dinámicamente -->
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <div class="date-filter-container">
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-12 mb-2">
+                                            <select class="form-select" id="filter-date-type" onchange="updateDateFilters()">
+                                                <option value="creacion">Fecha de Creación</option>
+                                                <option value="inicio">Fecha de Inicio</option>
+                                                <option value="fin">Fecha de Fin</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <select class="form-select" id="filter-day" onchange="filterProjects()">
+                                                <option value="">Día</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <select class="form-select" id="filter-month" onchange="filterProjects()">
+                                                <option value="">Mes</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <select class="form-select" id="filter-year" onchange="filterProjects()">
+                                                <option value="">Año</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <select class="form-select" id="filter-project-status" onchange="filterProjects()">
+                                    <option value="">Todos los estados</option>
+                                    <option value="Nuevo">Nuevo</option>
+                                    <option value="En Proceso de Viabilidad">En Proceso de Viabilidad</option>
+                                    <option value="En Asignación">En Asignación</option>
+                                    <option value="En Gestión por Analista">En Gestión por Analista</option>
+                                    <option value="En Gestión por Brigada">En Gestión por Brigada</option>
+                                    <option value="En Revisión de Verificación">En Revisión de Verificación</option>
+                                    <option value="Generación de Informe">Generación de Informe</option>
+                                    <option value="Opción Mejorar">Opción Mejorar</option>
+                                    <option value="Documentación Errada">Documentación Errada</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de proyectos -->
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>OT AIR-E</th>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>PRST</th>
+                                        <th>Departamento</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="projects-table-body">
+                                    <tr>
+                                        <td colspan="9" class="text-center">Cargando proyectos...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Add new tab panes for In Progress and Completed projects -->
+            <div class="tab-pane fade" id="in-progress" role="tabpanel" aria-labelledby="in-progress-tab">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Proyectos en Proceso de Viabilidad</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>OT AIR-E</th>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>PRST</th>
+                                        <th>Departamento</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="in-progress-table-body">
+                                    <tr>
+                                        <td colspan="9" class="text-center">Cargando proyectos...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Proyectos Finalizados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>OT AIR-E</th>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>PRST</th>
+                                        <th>Departamento</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="completed-table-body">
+                                    <tr>
+                                        <td colspan="9" class="text-center">Cargando proyectos...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar usuario -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="userModalTitle">Nuevo Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="user-form">
+                        <input type="hidden" id="user-id">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-nombre" class="form-label">Nombre *</label>
+                                    <input type="text" class="form-control" id="user-nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-apellido" class="form-label">Apellido *</label>
+                                    <input type="text" class="form-control" id="user-apellido" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-usuario" class="form-label">Nombre de Usuario *</label>
+                                    <input type="text" class="form-control" id="user-usuario" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-correo" class="form-label">Correo Electrónico *</label>
+                                    <input type="email" class="form-control" id="user-correo" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Modificar el modal de usuario para hacer visible la contraseña y agregar botón de desactivar -->
+                        <!-- Buscar la sección del formulario de usuario donde está el campo de contraseña -->
+                        <div class="form-group">
+                            <label for="user-password" class="form-label">Contraseña *</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="user-password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text" id="password-help">La contraseña debe tener al menos 6 caracteres.</div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-rol" class="form-label">Rol *</label>
+                                    <select class="form-select" id="user-rol" required onchange="toggleRoleSpecificFields()">
+                                        <option value="">Seleccione un rol</option>
+                                        <option value="admin">Administrador</option>
+                                        <option value="prst">PRST</option>
+                                        <option value="ejecutiva">Ejecutiva</option>
+                                        <option value="coordinador">Coordinador</option>
+                                        <option value="analista">Analista</option>
+                                        <option value="brigada">Brigada</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campos específicos para PRST -->
+                        <div id="prst-fields" class="role-specific-fields d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-prst-nombre" class="form-label">Nombre PRST *</label>
+                                        <select class="form-select" id="user-prst-nombre">
+                                            <option value="">Seleccione un PRST</option>
+                                            <!-- Se llenará dinámicamente -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-cedula" class="form-label">Cédula *</label>
+                                        <input type="text" class="form-control" id="user-cedula">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-matricula" class="form-label">Matrícula Profesional</label>
+                                        <input type="text" class="form-control" id="user-matricula">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-celular" class="form-label">Celular *</label>
+                                        <input type="text" class="form-control" id="user-celular">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="user-direccion" class="form-label">Dirección</label>
+                                        <input type="text" class="form-control" id="user-direccion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-barrio" class="form-label">Barrio</label>
+                                        <input type="text" class="form-control" id="user-barrio">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-ciudad" class="form-label">Ciudad</label>
+                                        <input type="text" class="form-control" id="user-ciudad">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campos específicos para Ejecutiva -->
+                        <div id="ejecutiva-fields" class="role-specific-fields d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="user-responsable-prst" class="form-label">PRST Responsables *</label>
+                                        <select class="form-select" id="user-responsable-prst" multiple size="5">
+                                            <!-- Se llenará dinámicamente -->
+                                        </select>
+                                        <div class="form-text">Mantenga presionado Ctrl para seleccionar múltiples PRST.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campos específicos para Coordinador -->
+                        <div id="coordinador-fields" class="role-specific-fields d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-tipo-coordinador" class="form-label">Tipo de Coordinador *</label>
+                                        <select class="form-select" id="user-tipo-coordinador">
+                                            <option value="">Seleccione un tipo</option>
+                                            <option value="administrativo">Administrativo</option>
+                                            <option value="operativo">Operativo</option>
+                                            <option value="censo">Censo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Campos específicos para Brigada -->
+                        <div id="brigada-fields" class="role-specific-fields d-none">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user-departamento" class="form-label">Departamento Asignado *</label>
+                                        <select class="form-select" id="user-departamento">
+                                            <option value="">Seleccione un departamento</option>
+                                            <option value="Atlántico">Atlántico</option>
+                                            <option value="La Guajira">La Guajira</option>
+                                            <option value="Magdalena">Magdalena</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Reemplazar el selector de estado con un campo de solo lectura y agregar botón de desactivar -->
+                        <!-- Buscar la sección donde está el selector de estado del usuario -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user-activo" class="form-label">Estado *</label>
+                                    <input type="text" class="form-control" id="user-activo-text" readonly>
+                                    <input type="hidden" id="user-activo" value="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="button" class="btn btn-warning form-control" id="toggle-user-status-btn">
+                                        <i class="fas fa-ban me-1"></i> <span id="toggle-status-text">Desactivar Usuario</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-user-button">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles de usuario -->
+    <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalles del Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Información Personal</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>ID:</th>
+                                    <td id="detail-user-id"></td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre Completo:</th>
+                                    <td id="detail-user-nombre"></td>
+                                </tr>
+                                <tr>
+                                    <th>Usuario:</th>
+                                    <td id="detail-user-usuario"></td>
+                                </tr>
+                                <tr>
+                                    <th>Correo:</th>
+                                    <td id="detail-user-correo"></td>
+                                </tr>
+                                <tr>
+                                    <th>Rol:</th>
+                                    <td id="detail-user-rol"></td>
+                                </tr>
+                                <tr>
+                                    <th>Estado:</th>
+                                    <td id="detail-user-estado"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Información Adicional</h6>
+                            <table class="table table-sm">
+                                <tbody id="detail-user-additional-info">
+                                    <!-- Se llenará dinámicamente según el rol -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6>Historial de Actividades</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Acción</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="user-activity-history">
+                                        <tr>
+                                            <td colspan="3" class="text-center">No hay actividades registradas</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles de proyecto -->
+    <div class="modal fade" id="projectDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalles del Proyecto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Información General</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>ID:</th>
+                                    <td id="detail-project-id"></td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre:</th>
+                                    <td id="detail-project-nombre"></td>
+                                </tr>
+                                <tr>
+                                    <th>PRST:</th>
+                                    <td id="detail-project-prst"></td>
+                                </tr>
+                                <tr>
+                                    <th>Departamento:</th>
+                                    <td id="detail-project-departamento"></td>
+                                </tr>
+                                <tr>
+                                    <th>Municipio:</th>
+                                    <td id="detail-project-municipio"></td>
+                                </tr>
+                                <tr>
+                                    <th>Barrios:</th>
+                                    <td id="detail-project-barrios"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Detalles Adicionales</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Fecha Creación:</th>
+                                    <td id="detail-project-fecha-creacion"></td>
+                                </tr>
+                                <tr>
+                                    <th>Fecha Inicio:</th>
+                                    <td id="detail-project-fecha-inicio"></td>
+                                </tr>
+                                <tr>
+                                    <th>Fecha Fin:</th>
+                                    <td id="detail-project-fecha-fin"></td>
+                                </tr>
+                                <tr>
+                                    <th>Estado:</th>
+                                    <td id="detail-project-estado"></td>
+                                </tr>
+                                <tr>
+                                    <th>Número de Postes:</th>
+                                    <td id="detail-project-postes"></td>
+                                </tr>
+                                <tr>
+                                    <th>Tipo de Solicitud:</th>
+                                    <td id="detail-project-tipo-solicitud"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h6>Asignaciones</h6>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Creado por:</th>
+                                    <td id="detail-project-creador"></td>
+                                </tr>
+                                <tr>
+                                    <th>Ejecutiva:</th>
+                                    <td id="detail-project-ejecutiva"></td>
+                                </tr>
+                                <tr>
+                                    <th>Analista:</th>
+                                    <td id="detail-project-analista"></td>
+                                </tr>
+                                <tr>
+                                    <th>Brigada:</th>
+                                    <td id="detail-project-brigada"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6>Historial del Proyecto</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Estado</th>
+                                            <th>Usuario</th>
+                                            <th>Rol</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="project-history">
+                                        <tr>
+                                            <td colspan="5" class="text-center">No hay historial registrado</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6>Documentos</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Documento</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="project-documents">
+                                        <tr>
+                                            <td colspan="3" class="text-center">No hay documentos registrados</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+>
+<!-- Modal para detalles del proyecto -->
+<div class="modal fade" id="modalDetalleProyecto" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title">Detalle Completo del Proyecto</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Pestañas para organizar la información -->
+              <ul class="nav nav-tabs" id="projectDetailsTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">Información General</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">Documentos</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="field-data-tab" data-bs-toggle="tab" data-bs-target="#field-data" type="button" role="tab">Datos de Campo</button>
+                  </li>
+              </ul>
+
+              <div class="tab-content p-3 border border-top-0 rounded-bottom">
+                  <!-- Información General -->
+                  <div class="tab-pane fade show active" id="general" role="tabpanel">
+                      <!-- ... (mantén tu contenido actual de información general) ... -->
+                  </div>
+
+                  <!-- Documentos -->
+                  <div class="tab-pane fade" id="documents" role="tabpanel">
+                      <div class="table-responsive">
+                          <table class="table table-bordered">
+                              <thead class="table-light">
+                                  <tr>
+                                      <th>Tipo</th>
+                                      <th>Nombre</th>
+                                      <th>Estado</th>
+                                      <th>Fecha</th>
+                                      <th>Acciones</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="documentsTableBody">
+                                  <!-- Se llenará dinámicamente -->
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+
+                  <!-- Datos de Campo (Brigada/Analista) -->
+                  <div class="tab-pane fade" id="field-data" role="tabpanel">
+                      <div class="accordion" id="fieldDataAccordion">
+                          <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#posteInfo">
+                                      Información de Postes
+                                  </button>
+                              </h2>
+                              <div id="posteInfo" class="accordion-collapse collapse show">
+                                  <div class="accordion-body">
+                                      <div class="table-responsive">
+                                          <table class="table table-sm">
+                                              <thead>
+                                                  <tr>
+                                                      <th>N° Poste</th>
+                                                      <th>Tipo</th>
+                                                      <th>Material</th>
+                                                      <th>Altura</th>
+                                                      <th>Elementos</th>
+                                                      <th>PRSTs</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody id="postesTableBody">
+                                                  <!-- Se llenará dinámicamente -->
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fotosInfo">
+                                      Fotografías
+                                  </button>
+                              </h2>
+                              <div id="fotosInfo" class="accordion-collapse collapse">
+                                  <div class="accordion-body">
+                                      <div id="fotosCarousel" class="carousel slide" data-bs-ride="carousel">
+                                          <div class="carousel-inner" id="fotosCarouselInner">
+                                              <!-- Se llenará dinámicamente -->
+                                          </div>
+                                          <button class="carousel-control-prev" type="button" data-bs-target="#fotosCarousel" data-bs-slide="prev">
+                                              <span class="carousel-control-prev-icon"></span>
+                                          </button>
+                                          <button class="carousel-control-next" type="button" data-bs-target="#fotosCarousel" data-bs-slide="next">
+                                              <span class="carousel-control-next-icon"></span>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal para el historial del proyecto -->
+<div class="modal fade" id="projectHistoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Historial del Proyecto: <span id="history-project-name"></span> (OT: <span id="history-project-ot"></span>)</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>OT AIR-E</th>
+                <th>Estado</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody id="project-history-body">
+              <!-- El historial se llenará aquí dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Agregar modal de confirmación para desactivar usuario -->
+    <div class="modal fade" id="deactivateUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="deactivateUserModalTitle">Confirmar Desactivación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea <span id="action-text">desactivar</span> al usuario <strong id="user-to-deactivate"></strong>?</p>
+                    <div class="form-group">
+                        <label for="deactivation-reason" class="form-label">Por favor, escriba la razón: *</label>
+                        <textarea class="form-control" id="deactivation-reason" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning" id="confirm-deactivate-btn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-white shadow p-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 mb-3 text-center text-md-start">
+                    <img src="./Images/IconoAir-e.webp" alt="Ícono Air-e" width="80">
+                    <p><strong>Dirección:</strong><br>
+                    Cra 57 No 99A - 65<br>
+                    Torres del Atlántico.<br>
+                    Barranquilla, Atlántico.</p>
+                </div>
+                <div class="col-md-4 col-sm-12 mb-3 text-center">
+                    <p><strong class="text-primary">Líneas de atención:</strong><br>
+                    Fijo o celular: 115<br>
+                    Línea nacional gratuita: 018000 930 135<br>
+                    PBX Atlántico: (605) 361 1000<br>
+                    PBX Magdalena: (605) 423 7097<br>
+                    PBX Guajira: (605) 727 9814</p>
+                </div>
+                <div class="col-md-4 col-sm-12 mb-3 text-center text-md-end">
+                    <p><strong class="text-primary">Síguenos</strong></p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fas fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-youtube"></i></a>
+                        <a href="#"><i class="fas fa-facebook"></i></a>
+                    </div>
+                    <p class="politicas-link"><a href="#">Políticas tratamiento de datos »</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-text text-center">
+            <p>&copy; 2025 Air-e Censo. Air-e intervenida 2024.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Storage JS -->
+    <script src="Js/storage.js"></script>
+    <!-- Admin JS -->
+    <script src="Js/admin.js"></script>
+    
+    <!-- Add a new modal for department projects -->
+    <div class="modal fade" id="departmentProjectsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="department-projects-modal-title">Proyectos por Departamento</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre del Proyecto</th>
+                                    <th>PRST</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="department-projects-modal-table">
+                                <tr>
+                                    <td colspan="5" class="text-center">No hay proyectos para mostrar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add a new modal for user profile -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Mi Perfil</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="profile-info">
+                        <div class="profile-item">
+                            <div class="profile-label">Nombre:</div>
+                            <div class="profile-value" id="profile-nombre"></div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="profile-label">Apellido:</div>
+                            <div class="profile-value" id="profile-apellido"></div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="profile-label">Usuario:</div>
+                            <div class="profile-value" id="profile-usuario"></div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="profile-label">Correo:</div>
+                            <div class="profile-value" id="profile-correo"></div>
+                        </div>
+                        <div class="profile-item">
+                            <div class="profile-label">Rol:</div>
+                            <div class="profile-value" id="profile-rol"></div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-warning w-100" id="change-password-btn">
+                            <i class="fas fa-key me-2"></i>Cambiar Contraseña
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add a new modal for changing password -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning" id="save-password-btn">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
